@@ -4,4 +4,4 @@
 
 👉 [novel-works](http://novel-works.com/kr/)
 
-👉 [novel-works_colne](https://kim-subin.github.io/novel-works_clone/index.html)
+👉 [novel-works_colne](https://kim-subin.github.io/novel-works_clone)
