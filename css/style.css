@@ -1,0 +1,319 @@
+@charset 'utf-8';
+/* CSS Document */
+
+
+/* reset */
+/* 기본적으로 setting 되어있는 margin 값 제거*/
+body {margin: 0;} 
+/* 기본적으로 setting 되어있는 margin, padding 값 제거*/
+h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, p, table {margin: 0; padding: 0;}
+ /* font-weight를 700으로 한 이유는 bold체로 쓰려고 - 개인이 직접 설정하면 됨 */
+h1, h2, h3, h4, h5, h6 {font-weight: 700;}
+/* 구형 브라우저에서 main tag를 인식 못하고 inline으로 인식하는 경우가 있기 때문에 그것을 방지하기 위해 사용 */
+main {display: block;}
+/* a tag에 있는 기본적인 색상, 글자 설정 제거 | inherit는 부모의 속성을 그대로 상속 받는 것 */
+a {color: inherit; text-decoration: inherit;}
+/* 구형의 브라우저에 필요한 형태 - 아마 조만간 안써도 되지 않을까요?! ㅇㅅㅇ */
+a img {border: none;}
+img {vertical-align: middle;} /* 없어도 됨 */
+li {list-style: none;} /* li 스타일 제거 */
+/* 디테일한 작업용 reset */
+address, em, i, cite {font-style: normal;} /* 이텔릭체를 normal로 변경 */
+ /* 두 줄로 나오는 것을 1개로 바꿔줌 => 우리가 알던 테이블 모양으로 나오게 만들어 줌 */
+table {border-collapse: collapse;}
+table caption {overflow: hidden; width: 0; height: 0;} /* table의 caption을 가려줌 */
+/* font의 속성을 inline block으로 하면 디자인 변경이 더 쉬움 */
+i.fas, i.far, i.fab {vertical-align: middle; display: inline-block;}
+/* i tag 안에 있는 span을 가려줌 */
+i.fas span, i.far span, i.fab span {position: absolute; overflow: hidden; text-indent: -999px;}
+/* 반응형웹제작용 */
+/* mobile에 대한 class는 모두 지워버림 */
+.mobile {display: none !important;}
+br.only-m {content: '';}
+br.only-m:after {content: '\00a0';} /* .ir-hidden이라고 되어 있는 것을 다 가려줌 */
+.ir-hidden {position: absolute; left: -9999px;}
+/* absolute로 쓰면 주변에 영향을 안 주고 혼자 사라짐 */
+
+/* common */
+/* 기본적으로 사용하려는 공통사항을 넣어줌 */
+/* font-family는 우선 순위가 매겨져 있고, 순서대로 없을 경우 그 다음 것을 씀 */
+/* 사이트에서 사용할 기본적인 font의 크기나 사이즈 색상과 배경 색상을 보여줌 */
+body {font-family: 'NotoSansKR', '맑은 고딕', 'malgun gothic', '돋움', Dotum, 'Apple SD Gothic Neo', Helvetica, sans-serif; font-weight: 400; font-size: 14px; color: #222222; background: #ffffff;}
+
+/*---------여기까지는 복붙에서 그대로 사용하는 경우가 많음---------*/
+
+/* css 작업 시 임의의 background color를 넣어 block을 확인하면서 작업하는 것이 좋음*/
+
+/* 1024보다는 작아지지 않게하여 웹사이트가 깨지지 않게 설정 */
+#wrapper {min-width: 1024px; overflow: hidden;}
+/* fixed 되면 inline-block이 되기 때문에서 주변에서 인식을 못함 => 주변은 재배열됨*/
+/* top을 -40px으로 지정하여 안보이게 가려줌. width를 100%로 지정하면 폭을 다 채움. */
+/* text-align을 center로 하면 가운데 정렬됨. line-height 40px 정도가 위에서 가운데 정도의 높이에 위치함 (정확한 가운데 X) */
+/* rgba를 사용하면 투명도까지 설정 가능. color는 font color를 의미함 */
+/* transition을 사용하여 top이라는 속성에 대한 간단한 애니메이션 추가 */
+/* 다른 블록에 가려지지 않도록 z-index 값을 크게 줘야 함 */
+#skip-nav {position: fixed; left: 0; top: -40px; width: 100%; height: 40px; text-align: center; line-height: 40px; font-size: 16px; background: rgba(0, 0, 0, 0.5); color: #ffffff; transition: top 0.3s; z-index: 10000;}
+#skip-nav:focus {top: 0;} /* focus가 있는 경우에만 보이도록 만듬 */
+
+/* 기존 웹페이지와는 다르게 header가 고정되도록 변경하여 제작 */
+/* fixed로 되어있는 경우에는 min-width: 1024px;를 다 설정해줘야 적용됨 (wrapper에만 하면 안됨) */
+#header {position: fixed; left: 0; top: 0; width: 100%; min-width: 1024px; height: 100px; z-index: 1000; transition: background 0.3s;}
+/* calc를 사용하면 %와 px를 더한 값을 사용할 수 있음 */
+/* box-shadow를 이용하면 그림자를 넣을 수 있음. 순서대로 x축, y축, 번짐의 정도, , 색상(검은색, 투명도 0.1) */
+/* box-shadow 설명 : offset-x | offset-y | blur-radius | spread-radius | color */
+#header:after {content: ''; position: absolute; left: 0; top: calc(100% + 1px); width: 100%; height: 0; background: #ffffff; box-shadow: 0px 3px 6px 0 rgba(0, 0, 0, 0.1); transition: height 0.3s;}
+#header h1 {position: absolute; left: 30px; top: 0;} /* header의 h1 (logo) 위치 고정 */
+
+/* a tag를 사용하는 경우 영역을 넓게 잡아줘서 글자 주변을 눌러도 인식이 되도록 만드는 것이 좋음
+   => 그렇게 하기 위해서 block의 안에 padding을 줘서 style을 지정하는 경우가 많음 */
+/* sub menu가 보이지 않도록 높이 설정 후 overflow를 hidden으로 설정하여 가려줌 | 높이를 300px로 하면 sub menu가 보임 */
+#gnb {position: absolute; left: 300px; top: 0; font-size: 15px; color: #999999; overflow: hidden; height: 100px; z-index: 100; transition: height 0.3s;}
+/* float를 left로 두면 li가 왼쪽 정렬되며, 한 줄로 길게 보여짐*/
+/* li의 높이를 맞춰주면 빈 공간에서도 hover에 대한 효과가 뜸 */
+#gnb > ul > li {float: left; height: 300px;} 
+/* block 사이에 약간의 여백을 줘서 block의 공간이 구분되도록 함  */
+/* +는 형제 요소를 의미하며 li의 형제 요소들에 속성을 적용한다는 의미 */
+/* 첫 번째 li 제외 그 다음부터 margin을 넣어줘서 li 사이에만 margin이 들어가도록 설정 => 불필요한 margin이 들어가지 않게 하기 위해 */
+#gnb > ul > li + li {margin-left: 5px;}
+/* padding: 0 20px; 라고 쓰면 위,아래는 0 좌우는 20px | line-height를 사용해 글자를 중간 위치로 조정해줌 */
+/* transition: color 0.3s;을 사용하면 색상이 천천히 바뀜 */
+#gnb > ul > li > a {position: relative; display: block; padding: 0 30px; height: 100px; line-height: 100px; transition: color 0.3s;}
+#gnb > ul > li:hover > a {color: #000000;} /* a에 마우스 커서가 올라가면 색상이 변경되도록 설정 */
+/* a의 뒤에 들어가도록 설정되는 그림 => a의 위치를 알기 위해 a에 position: relative; 추가 */
+/* 여기서 적용되는 width:100%는 a의 width에 대해서 100% (a가 기준!!) */
+/* transition을 사용하여 커서가 올라간 경우 width가 변경되므로 0.3s의 속도로 움직이게 설정. */
+/* left가 설정되어 있으므로 left가 0인 경우 왼쪽에서 선이 생김 */
+/* 선이 가운데에서 생기도록 하기 위해서는 left를 50%로 두어 a(부모)의 중앙에서 시작하도록 하고, 
+   transform: translate(-50%,0)을 설정하여 자신(자식,after)의 x축을 중심으로 왼쪽으로 밀도록 함. */
+/* left 같은 것은 부모 기준이고, transform은 자신을 기준으로 함 */
+/* 가운데 정렬을 하기 위해서 left:50%, top:50%, transform:translate(-50%,-50%) 이런 식으로 사용*/
+#gnb > ul > li > a:after {content: ''; position: absolute; left: 50%; transform: translate(-50%, 0); bottom: 0; width: 0; height: 1px; background: #000000; transition: width 0.3s;}
+/* 마우스 커서가 li에 올라갈 때만 width를 100%로 두어 선이 나타나도록 설정 */
+/* li에 hover를 두어야 a나 li 안의 ul에 마우스 커서가 올라갈 때 선이 생김! */
+#gnb > ul > li:hover > a:after {width: 100%;}
+/* 첫 번재 요소(li)를 제외한 형제 요소(li)의 위에 margin을 넣어줌 => 불필요한 margin이 들어가지 않게 하기 위해 */
+#gnb > ul > li > ul {margin-top: 30px;}
+#gnb > ul > li > ul > li + li {margin-top: 10px;}
+/* display를 block으로 변경하여 글자 주변을 눌러도 클릭이 되도록 변경 */
+#gnb > ul > li > ul > li > a {display: block; text-align: center; transition: color 0.3s;}
+#gnb > ul > li > ul > li > a:hover {color: #000000;}
+
+/* header에 class="on"이 붙은 경우 높이가 변경되어 숨겨진 내용이 보이도록 설정 */
+#header.on {background: #ffffff; border-bottom: 1px solid #e0e0e0;}
+#header.on:after {height: 200px;}
+#header.on #gnb {height: 300px;}
+
+#top-lang {position: absolute; right: 100px; top: 50%; transform: translate(0, -50%); font-size: 12px; font-weight: 700;}
+#top-lang li {float: left;}
+#top-lang li a {display: block; background: #eeeeee; padding: 6px 15px;}
+/* border-radius를 사용하면 끝부분이 둥글게 변함. px가 클수록 원에 가까워짐 */
+/* border-radius는 특정 위치를 지정하여 변경 가능*/
+#top-lang li:first-child a {border-top-left-radius: 20px; border-bottom-left-radius: 20px;}
+#top-lang li:last-child a {border-top-right-radius: 20px; border-bottom-right-radius: 20px;}
+/* 활성화 되어 있는 것만 색상을 입혀줌 */
+#top-lang li.on a {background: linear-gradient(to right, rgb(43, 182, 116) 0%, rgb(12, 169, 180) 100%); color: #ffffff;}
+
+/* icon을 font awesome으로 넣었기 때문에 크기, 색상 변경을 일반적인 폰트와 똑같이 적용 */
+/* inline 요소이므로 background를 칠해서 영역을 확인한 후 필요한 설정을 하는 것이 좋음!! */
+#header a.sitemap {position: absolute; right: 30px; top: 50%; transform: translate(0, -50%); font-size: 24px; color: #999999; line-height: 0;}
+
+/* 밑에 있는 것이 우선순위가 높으므로 설정을 아래 넣어줌 */
+/* 1300px가 되면 gnb의 padding이 줄여서 깨지지 않게 만들기 */
+/* 가장 적은 노력으로 화면을 맞출 수 있는 방법!! 기억해두기!!! */
+@media screen and (max-width: 1300px) {
+    #gnb {left: 250px;}
+    #gnb > ul > li > a {padding: 0 10px;}
+    #gnb > ul > li > ul > li > a {font-size: 13px;}
+}
+
+/* background에 img 넣고 폭을 100% 높이를 auto로 맞추면 이미지가 화면에 꽉차게 들어감 */
+#footer {background: #ffffff; background: url(../img/main_content_bg.jpg) center top no-repeat; background-size: 100% auto; padding-top: 100px; padding-bottom: 50px;}
+#footer > div.content-box {position: relative; max-width: 1200px; margin: 0 auto; box-sizing: border-box; font-size: 13px;}
+#footer ul.link {overflow: hidden; margin-bottom: 30px;}
+#footer ul.link li {float: left;}
+#footer address {background: pink; overflow: hidden; margin-bottom: 30px;}
+#footer address > div {float: left; width: 25%;}
+#footer address > div.location {width: 50%;}
+#footer address h3 {font-size: 18px; margin-bottom: 20px;}
+#footer address ul li + li {margin-top: 10px;}
+#footer address ul li span {display: inline-block; width: 100px; color: #999999;}
+/* content의 길이를 맞춰줄 때 이런 식으로 사용 */
+#footer address div.location ul li {position: relative; padding-left: 100px;}
+#footer address div.location ul li span {position: absolute; left: 0;}
+
+
+
+
+
+/* main */
+/* position을 relative로 주는 이유는 이 박스 안에서 이미지가 absolute가 되도록 하기 위해 */
+/* z-index값이 header보다 main-visual이 더 크기 때문에 position을 지정하며 header를 가림 => header에 z-index 부여 (skip-nav보다는 작게) */
+#main-visual {position: relative; height: 850px;}
+/* 나중에 높이를 줄일 때 편하게 바꿀 수 있도록 높이를 100%로 주는 것이 좋음 (%를 쓰면 부모 영역에서 값이 바뀌어도 자식 영역에서 값을 변경할 필요가 없음)*/
+/* 겹치는 이미지는 모두 none으로 해서 지운 후, 첫 번째 이미지만 block으로 바꿔서 웹 페이지에 들어갔을 때 첫 번째 이미지가 보이도록 설정 => 이렇게 해야 jQuery 작업 시 튀는 현상이 나타나지 않음*/
+#main-visual ul.slide li {position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: none;}
+/* img를 center center로 두면 좌우 상하에서 다 center로 들어감 */
+/* backgroud에 img를 넣을 때는 보통 url center center no-repeat 이런 식으로 사용 (반복될 필요가 없으므로 no-repeat) */
+/* background-size를 cover로 하면 이미지가 잘려도 상관없으니까 여백을 없애는 것. contain은 여백이 나와도 상관없으니 이미지를 다 보여주는 것 */
+/* background-size를 설정할 때 폭이나 높이 둘 중 하나만 설정허고 싶을 경우 나머지 하나를 auto를 써줘야 함. background-size: 50% auto; 이런 식으로 */
+#main-visual ul.slide li:first-child {background: url(../img/main_visual_01.jpg) center center no-repeat; background-size: cover; display: block;}
+/* multiple background가 가능해서 배경 이미지를 여러 개 넣을 수 있음 */
+/* 먼저 쓴 이미지가 앞으로 가기 때문에 보이는 순서대로 입력하면 됨 */
+/* 이미지를 여러 개 넣을 때 background에 color를 넣으면 안됨 */
+/* 무조건 왼쪽을 기준으로 값을 넣을 수 있음 */
+/* %의 경우 나의 %와 배경의 %가 일치하는 위치에 이미지가 들어감 => 그냥 대충 맞춰도 됨 */
+/* 이미지가 두 개일 때, background-size: auto, cover; 이런 식으로 ,를 사용해서 설정을 구분하면 됨*/
+#main-visual ul.slide li:last-child {background: url(../img/main_visual_02_sub.png) 90% bottom no-repeat, url(../img/main_visual_02.jpg) center center no-repeat; background-size: auto, cover;}
+#main-visual ul.slide li p.slogan {position: absolute; left: 200px; top: 50%; transform: translate(0, -50%); font-weight: 700;}
+#main-visual ul.slide li:last-child p.slogan {color: #ffffff;}
+/* >를 안 넣으면 모든 자식 요소에게 적용이 되므로 바로 아래 span에만 적용한다는 의미로 >를 넣어줌 */
+#main-visual ul.slide li p.slogan > span {display: block; font-size: 16px; margin-bottom: 10px;}
+/* em은 font-size에 상대적인 값이라고 보면 됨! line-height의 값을 조정해주면 글자 사이의 높이 간격 조정 가능 */
+#main-visual ul.slide li p.slogan > em {font-size: 80px; line-height: 1em;}
+#main-visual ul.slide li:first-child a {position: absolute; left: calc(50% + 250px); transform: translate(-50%, 0); top: 200px;}
+#main-visual p.control {position: absolute; left: 200px; bottom: -50px;}
+/* line-height로 맞추는 것이 아니라 position: relative를 주고 absolute를 이용해서 가운데 지정하는 게 더 장확함 */
+#main-visual p.control a {position: relative; display: inline-block; width: 100px; height: 100px; color: #ffffff; border-radius: 100px; font-size: 30px;}
+#main-visual p.control a + a {margin-left: 20px;}
+#main-visual p.control a.prev {background: #2bb673;}
+#main-visual p.control a.next {background: #0ba9b5;}
+#main-visual p.control a i {position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+
+#main-summary {padding: 100px 0;}
+/* float를 쓰면 부모가 overflow: hidden을 썼을 때 자식의 높이를 인식함 */
+/* 레이아웃이 민감한 건 float를 쓰는 것이 좋음!!!! */
+#main-summary > div.content-box {max-width: 1200px; margin: 0 auto; overflow: hidden; box-sizing: border-box;}
+/* box-sizing을 border-box로 설정하면 padding이 밖으로 생기는 것이 아니라 안으로 생겨서 글자가 안쪽으로 들어가게 됨 */
+/* box-sizing을 border-box로 설정하지 않으면 padding 설정 시 레이아웃이 깨질 수 있음 */
+#main-summary > div.content-box > div {float: left; box-sizing: border-box; padding: 30px; font-size: 16px;}
+#main-summary h3 {position: relative; font-size: 24px; margin-bottom: 30px;}
+#main-summary h3:after {content: ''; position: absolute; left: 0; bottom: -10px; width: 40px; height: 2px; background: #ffffff;}
+#main-summary ul li + li {margin-top: 5px;}
+/* width를 %로 주는 이유는 div.content-box가 max-width가 지정되어 있기 때문에 */
+#main-summary > div.content-box > div.product {width: 30%; height: 600px; background: url(../img/main_content_01.jpg) center center no-repeat; color: #ffffff;}
+#main-summary > div.content-box > div.slogan {width: 45%; height: 300px; background: url(../img/main_content_02.jpg) right center no-repeat; font-size: 20px; color: #ffffff;}
+#main-summary > div.content-box > div.rnd {width: 25%; height: 300px; background: #ffffff;}
+#main-summary > div.content-box > div.odm {width: 25%; height: 300px; background: #ffffff;}
+#main-summary > div.content-box > div.rnd h3:after,
+#main-summary > div.content-box > div.odm h3:after {background: #0ba9b5;}
+#main-summary > div.content-box > div.bg {width: 45%; height: 300px; background: url(../img/main_content_03.jpg) center center no-repeat;}
+@media screen and (max-width: 1250px) {
+    #main-summary > div.content-box {padding: 0 30px;}
+}
+
+#main-dev {position: relative; padding: 100px 0;}
+/* outline은 board 영역의 테두리라고 보면 됨. outline: 1px solid pink;로 보면 레이아웃에 영향 없이 확인 가능*/
+#main-dev > div.content-box {max-width: 1200px; margin: 0 auto; text-align: center; box-sizing: border-box; outline: 1px solid pink;}
+#main-dev > div.content-box h2 {font-size: 30px; margin-bottom: 10px;}
+#main-dev > div.content-box h2 + p {font-size: 16px; color: #999999;}
+#main-dev > div.content-box ol.process {margin: 80px 0 100px 0;}
+#main-dev > div.content-box ol.process:before {content: ''; position: absolute; left: 0; top: 342px; width: 100%; height: 1px; background: #e0e0e0;}
+#main-dev > div.content-box ol.process li {position: relative; display: inline-block; width: 12%; height: 180px;}
+/* > * 하면 아래 있는 모든 tag를 의미함 */
+#main-dev > div.content-box ol.process li > * {display: block;}
+/* margin 안에 4개를 쓰면 순서대로 시계방향 (상 우 하 좌) */
+/* img는 따로 설정해주어야함 */
+#main-dev > div.content-box ol.process li img {position: relative; margin: 0 auto 80px auto;}
+#main-dev > div.content-box ol.process li span {font-size: 12px; margin-bottom: 10px;}
+#main-dev > div.content-box ol.process li em {font-size: 20px;}
+#main-dev > div.content-box ol.process li:before {content: ''; position: absolute; left: 50%; top: 80px; transform: translate(-50%, 0); width: 10px; height: 10px; background: #e0e0e0; border-radius: 10px;}
+/* li에 class='on'이 붙지 않은 경우, background: transparent;를 이용해 색상을 투명하게 설정 */
+#main-dev > div.content-box ol.process li em:before {content: ''; position: absolute; left: 50%; top: 79px; transform: translate(-50%, 0); width: 12px; height: 12px; background: transparent; border-radius: 10px;}
+#main-dev > div.content-box ol.process li em:after {content: ''; position: absolute; left: 50%; top: 75px; transform: translate(-50%, 0); width: 18px; height: 18px; border: 1px solid transparent; border-radius: 10px;}
+/* li에 class='on'이 붙는 경우에 색상이 보이고 이미지가 살짝 올라가도록 설정 */
+#main-dev > div.content-box ol.process li.on img {top: -30px;}
+#main-dev > div.content-box ol.process li.on em:before {background-color: #0ba9b5;}
+#main-dev > div.content-box ol.process li.on em:after {border-color: #0ba9b5;}
+#main-dev h3 {text-align: left; margin-bottom: 15px; font-size: 20px;}
+#main-dev div.main-slide {position: relative; background: pink;}
+#main-dev div.main-slide > div.box {position: relative; max-width: 1100px; margin: 0 auto; overflow: hidden;}
+/* ul.slide의 높이를 인식할 수 있도록 하기 위해 dummy를 만듦 */
+#main-dev p.dummy img {width: 100%; opacity: 0;}
+#main-dev div.main-slide ul.slide {position: absolute; left: 0; top: 0; width: 100%; height: 100%;}
+#main-dev div.main-slide ul.slide li {position: absolute; left: 0; top: 0; width: 100%; height: 100%;}
+/* img가 부모의 폭만큼의 폭을 가지도록 직접 설정해야 함 */
+#main-dev div.main-slide ul.slide li img {width: 100%;}
+/* content가 img 위에 올라오도록 하기 위해 설정 */
+#main-dev div.main-slide ul.content li {position: absolute; left: 0; bottom: 0; width: 80%; height: 150px; text-align: left; background: #f2f2f2;}
+#main-dev div.main-slide ul.content li img {position: absolute; left: 0; bottom: 30px; max-height: 200px;}
+#main-dev div.main-slide ul.content li em {position: absolute; left: 15%; width: 40%; height: 150px; line-height: 150px; font-size: 50px; font-weight: 700; background: #f9f9f9;}
+#main-dev div.main-slide ul.content li p {position: absolute; right: 0; top: 50%; transform: translate(0, -50%); width: 45%; background: pink; box-sizing: border-box; padding: 0 20px;}
+#main-dev div.main-slide ul.content li a {position: absolute; right: -50px; top: -50px; width: 100px; height: 100px; border-radius: 200px; background: #0ba9b5; color: #ffffff;}
+#main-dev div.main-slide ul.content li a i {position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-size: 24px;}
+/* 공통으로 주려는 속성은 같이 쓰고, left, right는 같이 쓰지 않도록 주의할 것 */
+#main-dev div.main-slide p.control a {position: absolute; top: 0; width: 50px; height: 100%; font-size: 30px;}
+#main-dev div.main-slide p.control a.prev {left: 0;}
+#main-dev div.main-slide p.control a.next {right: 0;}
+/* absolute로 띄우고 가운데 정렬해서 아이콘(<>)의 위치 조정해줌 */
+#main-dev div.main-slide p.control a i {position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);}
+@media screen and (max-width: 1250px) {
+    #main-dev > div.content-box {padding: 0 30px;}
+}
+
+#main-online {position: relative; padding: 100px 0; background: #f2f2f2;}
+#main-online > div.content-box {max-width: 1200px; margin: 0 auto; box-sizing: border-box; outline: 1px solid yellow;}
+#main-online > div.content-box h2 {font-size: 30px; text-align: center; margin-bottom: 60px;}
+/* 부모에게 overflow: hidden;을 주면 자식이 float 되어도 높이 인식 */
+#main-online div.form {overflow: hidden;}
+#main-online div.form > ul {float: left; width: 49%; font-size: 16px;}
+#main-online ul.form-left li {overflow: hidden;}
+#main-online ul.form-left li + li {margin-top: 15px;}
+/* float 시키면 inline-block이 되므로 inline-block을 display 속성으로 주지 않아도 됨 */
+#main-online ul.form-left li > * {float: left;}
+/* inline-block이므로 높이를 총 40px로 맞추기 위해서는 line-height를 39px로 맞추고 border-bottom이 1px 들어가면 됨 */
+#main-online ul.form-left li label {width: 120px; line-height: 39px; border-bottom: 1px solid #e0e0e0;}
+/* input box만 줄어들도록 calc 사용 */
+#main-online ul.form-left li input,
+#main-online ul.form-left li select {width: calc(100% - 120px); height: 40px; box-sizing: border-box; border: none; border-bottom: 1px solid #e0e0e0;}
+#main-online ul.form-right {margin-left: 2%;}
+#main-online ul.form-right li:first-child label {display: block;}
+#main-online ul.form-right textarea {width: 100%; height: 100px;}
+
+/* media query를 줘서 사이즈가 줄어들어도 콘텐츠가 벽에 딱 붙지 않게 해줌 */
+@media screen and (max-width: 1250px) {
+    #main-online > div.content-box {padding: 0 30px;}
+}
+
+
+
+
+
+
+
+/* module */
+/* web site에서 공통으로 쓰는 부분 */
+.green {color: #2bb673;}
+.lime {color: #0ba9b5;}
+
+
+
+
+
+
+
+
+/*
+
+animation: circle-effect 1.5s ease-out 0s infinite normal forwards;
+
+@keyframes circle-effect {
+    0% {opacity: 1; transform: translate(-50%, 0) scale(0.8);}
+    100% {opacity: 0; transform: translate(-50%, 0) scale(1.4);}
+}
+
+animation 축약 표현
+animation: main-bg-animation 3s ease-out 0.1s 1 normal forwards running;
+animation: name duration timing-function delay iteration-count direction fill-mode play-state
+duration: 0(default), time, initial, inherit
+timing-function: ease(default), linear, ease-in, ease-out, ease-in-out, step-start, step-end, steps(int, start|end), cubic-bezier(n, n, n, n), initial, inherit
+deley: 0s(default), time, initial, inherit
+direction: normal(default), reverse, alternate, alternate-reverse, initial, inherit
+iteration-count: 1(default), number, infinite, initial, inherit
+fill-mode: none(default), forwards, backwards, both, initial, inherit
+play-state: running(default), paused, initial, inherit  (IE에서는 축약표현에 포함시 동작하지 않음, 별도로 사용)
+
+[최종 사용 예시]
+animation: main-bg-animation 3s ease-out 0s 1 normal forwards;
+animation-play-state: running;
+*/
+
